@@ -1,0 +1,44 @@
+[
+  {
+    "option_id": 0,
+    "shipping_method": {
+      "id": 0,
+      "type": "standard",
+      "name": "string",
+      "deliver_to": "address"
+    },
+    "currency_id": "string",
+    "cost": 0,
+    "cost_type": "charged",
+    "service_id": 0,
+    "estimated_delivery_time": {
+      "type": "known",
+      "date": "string",
+      "shipping": 0,
+      "handling": 0,
+      "unit": "string",
+      "offset": {
+        "date": "string",
+        "shipping": 0
+      },
+      "time_frame": {
+        "from": 0,
+        "to": 0
+      },
+      "pay_before": "string"
+    },
+    "estimated_handling_limit": {
+      "date": "2016-12-30T12:32:35.000Z"
+    },
+    "estimated_delivery_extended": {
+      "date": "2016-12-30T12:32:35.000Z"
+    },
+    "estimated_delivery_limit": {
+      "date": "2016-12-30T12:32:35.000Z"
+    },
+    "estimated_delivery_final": {
+      "date": "2016-12-30T12:32:35.000Z"
+    },
+    "delay": ["shipping_delayed" ]
+  }
+]

@@ -1,0 +1,61 @@
+[
+   {
+      "id":4234458807,
+      "status":"paid",
+      "status_detail":null,
+      "date_created":"2013-05-27T10:01:50.000-04:00",
+      "date_closed":"2013-05-27T10:04:07.000-04:00",
+      "order_items":[
+         {
+            "item":{
+               "id":"MLB12345678",
+               "title":"Funda Para Galaxy A20",
+               "variation_id":null,
+               "variation_attributes":[
+                  
+               ]
+            },
+            "quantity":1,
+            "unit_price":200,
+            "currency_id":"BRL"
+         }
+      ],
+      "total_amount":200,
+      "currency_id":"BRL",
+      "buyer":{
+         "id":"123456789",
+         "nickname":"COMPRADORTESTE",
+         "email":"b@b.com",
+         "first_name":"Comprador de testes",
+         "last_name":"da Silva"
+      },
+      "seller":{
+         "id":"123456789",
+         "nickname":"VENDEDORTESTES",
+         "email":"a@a.com",
+         "first_name":"Vendedor de Testes",
+         "last_name":"testes de documentacao"
+      },
+      "payments":[
+         {
+            "id":"596735984",
+            "transaction_amount":200,
+            "currency_id":"BRL",
+            "status":"approved",
+            "date_created":null,
+            "date_last_modified":null
+         }
+      ],
+      "feedback":{
+         "purchase":null,
+         "sale":null
+      },
+      "shipping":{
+         "id":20676482441
+      },
+      "tags":[
+         "paid",
+         "not_delivered"
+      ]
+   }
+]
