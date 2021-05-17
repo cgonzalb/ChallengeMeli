@@ -165,7 +165,7 @@ else
 	origdomicilio=$(jq -r '.[] | "\(.origin.sender_id|@sh)"' "$jsonin"| tr -d "'")
 fi
 		
-if [ "$origdomicilio" = "4321345667" ]; then
+if [ "$origdomicilio" == "4321345667" ]; then
 	arrDatosEnvio=( "Deposito ML" )
 else
 	arrDatosEnvio=( "Vendedor" )
