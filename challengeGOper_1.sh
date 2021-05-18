@@ -1,6 +1,5 @@
 #!/bin/sh
 
-amb="";
 server_generated_authorization_code=${1}
 filename=./ordenes.txt
 csv=Ejercicio1.csv
@@ -14,7 +13,7 @@ endpoint=https://api.mercadolibre.com
 
 function obtener_token () {
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 
 	urlAuthotizationCode=http://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=892829410716603&redirect_uri=https://www.mercadolibre.com.ar
 
@@ -34,8 +33,12 @@ if [ "$amb" == "PROD" ]; then
 	access_token=$(echo ${LOGIN##*access_token\":\"} | cut -d '"' -f 1)
 
 else
-	
-	access_token=APP_USR-892829410716603-051220-f69d351f2855e9d3adf8960f870f5550-84451188
+	if [ "$AMBIENTE" == "dev" ]; then
+		access_token=APP_USR-892829410716603-051220-f69d351f2855e9d3adf8960f870f5550-84451188
+	else
+		echo -e "\nError: Debe setear la variable de entorno 'AMBIENTE' con el valor 'prod' o 'dev'";
+		exit 2
+	fi
 fi
 
 echo -e "\nToken obtenido:  ${access_token}\n";
@@ -51,7 +54,7 @@ echo -e "\n-Obteniendo datos de productos\n"
 
 echo curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/orders/$order";
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 	datosProd=$(curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/orders/$order")
 	
 	if [[ ${datosProd} != *"id"* ||  ${datosProd} == *"resource not found"*  ]];then
@@ -82,7 +85,7 @@ echo -e "\n-Obteniendo detalle de pago\n"
 
 echo curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/v1/payments/$payment_id";
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 	paymentOut=$(curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/v1/payments/$payment_id")
 
 	if [[ ${paymentOut} != *"id"* ||  ${paymentOut} == *"resource not found"*  ]];then
@@ -108,7 +111,7 @@ echo -e "\n-Obteniendo tipo de logistica\n"
 
 echo curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/shipments/$shipment_id/lead_time";
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 	tipoLogisout=$(curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/shipments/$shipment_id/lead_time")
 	
 	if [[ ${tipoLogisout} != *"id"* ||  ${tipoLogisout} == *"resource not found"*  ]];then
@@ -132,7 +135,7 @@ echo -e "\n-Obteniendo datos de envio\n"
 
 echo curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/shipments/$shipment_id";
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 	shipmentout=$(curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/shipments/$shipment_id")
 	
 	if [[ ${shipmentout} != *"id"* ||  ${shipmentout} == *"resource not found"*  ]];then
@@ -158,7 +161,7 @@ fi
 function obtener_origen () {
 jsonin=$1
 	
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 	
 	origdomicilio=$(jq -r '.[] | "\(.origin.sender_id|@sh)"' <<< "$jsonin"| tr -d "'")
 else
@@ -177,7 +180,7 @@ fi
 function obtener_destino () {
 jsonin=$1
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 
 	destdomicilio=( "$(jq -r '.[] | "\(.destination.shipping_address.address_id|@sh)"' <<< "$jsonin"| tr -d "'")" )
 	destagencia=( "$(jq -r '.[] | "\(.destination.shipping_address.agency.carrier_id|@sh)"' <<< "$jsonin"| tr -d "'")" )
@@ -225,7 +228,7 @@ echo -e "\n-Obteniendo datos del Carrier\n"
 
 echo curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/shipments/$shipment_id/carrier";
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 	carrierOut=$(curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/shipments/$shipment_id/carrier")
 	
 	if [[ ${carrierOut} != *"name"* ||  ${carrierOut} == *"resource not found"*  ]];then
@@ -247,7 +250,7 @@ echo -e "\n-Obteniendo tiempos de envio\n"
 
 echo curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/orders/$order_id/shipments";
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 	tiempoOut=$(curl -s -X GET -H "Authorization: Bearer $access_token" "$endpoint/orders/$order_id/shipments")
 
 	if [[ ${tiempoOut} != *"id"* ||  ${tiempoOut} == *"resource not found"*  ]];then
@@ -320,7 +323,7 @@ fi
 # MAIN ################################################################################################################
 #######################################################################################################################
 
-if [ "$amb" == "PROD" ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 
 	if [ $# -eq 0 ]; then
 		echo -e "\n\e[0;31m###Debe insertar el siguiente parametro en la linea de comando###\e[0m";

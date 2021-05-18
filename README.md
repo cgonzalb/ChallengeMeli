@@ -1,6 +1,22 @@
 # ChallengeMeli
 Challenge Tecnico Gestión Operativa
 
-Copiar el archivo 'ordenes.txt' y 'shipment_id.txt' en el mismo path que se copia el script 'challengeGOper_1.sh' y'challengeGOper_2.sh'.
-Crear una carpeta con el nombre 'json' en la misma carpeta que se encuentra el script y copiar dentro los 12 archivos con extensión 'json'.
-Debe tener instalado el complemento 'jq'.
+Para realizar la ejecución de los scripts se deberá setear la variable de entorno 'AMBIENTE' con los siguientes valores de acuerdo con su necesidad.
+
+-MOCK: 
+
+#export AMBIENTE=dev
+	
+Ejecución del scrrpt
+#./challengeGOper_1.sh 
+#./challengeGOper_2.sh
+
+-PRODUCCION: 
+
+#export AMBIENTE=prod
+
+Ejecución del scrrpt
+#./challengeGOper_1.sh 	<SERVER_GENERATED_AUTHORIZATION_CODE>
+#./challengeGOper_2.sh 	<SERVER_GENERATED_AUTHORIZATION_CODE>
+
+Parametro <SERVER_GENERATED_AUTHORIZATION_CODE> : Se obtiene de 'https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=<APP_ID>&redirect_uri=<YOUR_URL>'
