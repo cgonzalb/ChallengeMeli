@@ -13,7 +13,7 @@ endpoint=https://api.mercadolibre.com
 
 function obtener_token () {
 
-if [ "$AMBIENTE" == "prod " ]; then
+if [ "$AMBIENTE" == "prod" ]; then
 
 	urlAuthotizationCode=http://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=892829410716603&redirect_uri=https://www.mercadolibre.com.ar
 
