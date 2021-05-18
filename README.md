@@ -6,9 +6,9 @@ Para realizar la ejecución de los scripts se deberá setear la variable de ento
 -MOCK: 
 
 #export AMBIENTE=dev
-	
+
 Ejecución del scrrpt
-#./challengeGOper_1.sh 
+#./challengeGOper_1.sh
 #./challengeGOper_2.sh
 
 -PRODUCCION: 
